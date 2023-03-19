@@ -11,12 +11,14 @@ def parallel_processing(n, m, data):
     next_job = [(0, i) for i in range(m)]
 
     while next_job:
-        
+
         time, job_index = next_job[0]
 
         thread_index = free_threads[0]
 
-        start_time = max(time, output[thread_index][1] if output else 0)
+        start_time = 0
+        if output and thread_index < len(output):
+            start_time = max(time, output[thread_index][1])
 
         output.append((thread_index, start_time))
 
