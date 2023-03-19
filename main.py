@@ -39,9 +39,7 @@ def main():
     # n - thread count 
     # m - job count
 
-    a = list(map(int, input().split()))
-    n = a[0]
-    m = a[1]
+    n, m = map(int, input().split())
 
     # second line - data 
     # data - contains m integers t(i) - the times in seconds it takes any thread to process i-th job
