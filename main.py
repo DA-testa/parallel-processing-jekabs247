@@ -49,8 +49,8 @@ def main():
     
     # TODO: print out the results, each pair in it's own line
 
-    for a, b in result:
-        print(a, b)
+    for thread_index, start_time in result:
+        print(thread_index, start_time)
 
 
 
