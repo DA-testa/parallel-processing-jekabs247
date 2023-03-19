@@ -1,5 +1,7 @@
 # python3
-#Jēkabs Kindzulis, 221RDC047,, 18.gr
+#Jēkabs Kindzulis, 221RDC047, 18.gr
+
+import heapq
 
 def parallel_processing(n, m, data):
 
@@ -8,21 +10,24 @@ def parallel_processing(n, m, data):
     # create the output pairs
 
     free_threads = list(range(n))
+    heapq.heapify(free_threads)
+
+    #heap trackos kurs ir nakamais job
     next_job = [(0, i) for i in range(m)]
+    heapq.heapify(next_job)
 
     while next_job:
-        time, job_index = min(next_job, key=lambda x: x[0])
-        next_job.remove((time, job_index))
+        time, job_index = heapq.heappop(next_job)
 
-        thread_index = free_threads.pop()
+        thread_index = heapq.heappop(free_threads)
 
         start_time = max(time, output[thread_index][1] if output else 0)
 
         output.append((thread_index, start_time))
 
-        free_threads.add(thread_index)
+        heapq.heappush(free_threads, thread_index)
 
-        next_job.append((start_time + data[job_index], job_index))
+        heapq.heappush(next_job, (time + data[job_index], job_index))
 
     return output
 
