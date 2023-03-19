@@ -8,30 +8,27 @@ def parallel_processing(n, m, data):
     # create the output pairs
 
     free_threads = list(range(n))
-    next_job = [(0, i) for i in range(m)]
+    rep = list(0 for i in range(n))
+    timeCount = 0
+    temp = 0
 
-    while next_job:
+    for a in range (m):
 
-        time, job_index = next_job[0]
+        output.append(rep[temp])
+        output.append(free_threads[temp])
 
-        thread_index = free_threads[0]
+        while any(data):
+            data[a] = data[a] - 1
+            rep[temp] = rep[temp] + 1
 
-        start_time = 0
-        if output and thread_index < len(output):
-            start_time = max(time, output[thread_index][1])
+            if not data[a]:
+                break
+        
+        calcul = (temp + 1) % n
+        temp = calcul
 
-        output.append((thread_index, start_time))
-
-        free_threads = free_threads[1:]
-        next_job = next_job[1:]
-
-        if len(next_job) < n and next_job:
-            next_job.sort()
-
-        free_threads.append(thread_index)
-
-        next_job.append((time + data[job_index], job_index))
-        next_job.sort() 
+        if not temp:
+            timeCount = timeCount + 1
 
     return output
 
@@ -53,8 +50,8 @@ def main():
     
     # TODO: print out the results, each pair in it's own line
 
-    for thread_index, start_time in result:
-        print(thread_index, start_time)
+    for thread, time in result:
+        print(thread, time)
 
 
 
