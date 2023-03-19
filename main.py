@@ -52,7 +52,7 @@ def main():
     rez_l = len(result)
 
     for a in range(0, rez_l, 2):
-        print(result[a], result[a+1])
+        print(result[a+1], result[a])
 
 
 
