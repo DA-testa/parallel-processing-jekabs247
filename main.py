@@ -39,7 +39,9 @@ def main():
     # n - thread count 
     # m - job count
 
-    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    n = a[0]
+    m = a[1]
 
     # second line - data 
     # data - contains m integers t(i) - the times in seconds it takes any thread to process i-th job
@@ -49,9 +51,10 @@ def main():
     result = parallel_processing(n,m,data)
     
     # TODO: print out the results, each pair in it's own line
+    rez_l = len(result)
 
-    for thread, time in result:
-        print(thread, time)
+    for a in range(0, rez_l, 2):
+        print(result[a], result[a+1])
 
 
 
