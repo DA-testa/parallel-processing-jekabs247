@@ -28,9 +28,9 @@ def parallel_processing(n, m, data):
 
         free_threads.append(thread_index)
 
-        
+        next_job = [(time, job_index) for time, job_index in next_job if job_index != next_job_index]
 
-
+        next_job.append((min_time + data[next_job_index], next_job_index))
 
     return output
 
