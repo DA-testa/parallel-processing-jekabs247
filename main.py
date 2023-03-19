@@ -11,26 +11,18 @@ def parallel_processing(n, m, data):
     next_job = [(0, i) for i in range(m)]
 
     while next_job:
+        time, job_index = min(next_job, key=lambda x: x[0])
+        next_job.remove((time, job_index))
 
-        min_time = float('inf')
+        thread_index = free_threads.pop()
 
-        for time, job_index in next_job:
-
-            if time < min_time:
-                min_time = time
-                next_job_index = job_index
-
-        thread_index = free_threads.pop(0)
-
-        start_time = max(min_time, output[thread_index][1] if output else 0)
+        start_time = max(time, output[thread_index][1] if output else 0)
 
         output.append((thread_index, start_time))
 
-        free_threads.append(thread_index)
+        free_threads.add(thread_index)
 
-        next_job = [(time, job_index) for time, job_index in next_job if job_index != next_job_index]
-
-        next_job.append((min_time + data[next_job_index], next_job_index))
+        next_job.append((start_time + data[job_index], job_index))
 
     return output
 
